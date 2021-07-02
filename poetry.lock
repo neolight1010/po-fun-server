@@ -52,6 +52,14 @@ python-versions = ">=3.6"
 django = "*"
 
 [[package]]
+name = "fleep"
+version = "1.0.1"
+description = "File format determination library"
+category = "main"
+optional = false
+python-versions = ">=3.1"
+
+[[package]]
 name = "mypy"
 version = "0.910"
 description = "Optional static typing for Python"
@@ -111,7 +119,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "207a05deae6b77ae37b13b17107236b04e8b548f125c122ea3481d03e9be941d"
+content-hash = "1716659e7160128d986ed7864f7f057e146dd665aae0bcc7f20b2e2b30a7ec7c"
 
 [metadata.files]
 asgiref = [
@@ -129,6 +137,9 @@ django-stubs = [
 django-stubs-ext = [
     {file = "django-stubs-ext-0.2.0.tar.gz", hash = "sha256:c14f297835a42c1122421ec7e2d06579996b29d33b8016002762afa5d78863af"},
     {file = "django_stubs_ext-0.2.0-py3-none-any.whl", hash = "sha256:bd4a1e36ef2ba0ef15801933c85c68e59b383302c873795c6ecfc25950c7ecdb"},
+]
+fleep = [
+    {file = "fleep-1.0.1.tar.gz", hash = "sha256:c8f62b258ee5364d7f6c1ed1f3f278e99020fc3f0a60a24ad1e10846e31d104c"},
 ]
 mypy = [
     {file = "mypy-0.910-cp35-cp35m-macosx_10_9_x86_64.whl", hash = "sha256:a155d80ea6cee511a3694b108c4494a39f42de11ee4e61e72bc424c490e46457"},

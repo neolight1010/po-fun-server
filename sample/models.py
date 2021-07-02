@@ -1,3 +1,4 @@
+from .validators import validate_audio_file
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import get_user_model
@@ -15,4 +16,6 @@ class Sample(models.Model):
     sample_type = models.CharField(
         max_length=10, choices=SampleType.choices, name="type"
     )
-    sample_file = models.FileField(upload_to="uploads/", name="file")
+    sample_file = models.FileField(
+        upload_to="uploads/", name="file", validators=[validate_audio_file]
+    )
