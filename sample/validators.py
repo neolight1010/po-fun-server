@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 import fleep
 
 
-def validate_audio_file(audio_file: File) -> Any:
+def validate_audio_file(audio_file: File) -> Any:  # TODO: Change return type.
     info = fleep.get(audio_file.file.read(128))
 
     if not info.type_matches("audio"):
