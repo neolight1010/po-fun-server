@@ -8,6 +8,7 @@ class Sample(models.Model):
     class SampleType(models.TextChoices):
         MELODIC = _("MELODIC")
         DRUM = _("DRUM")
+        PACK = _("PACK")
 
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=500, blank=True)
@@ -21,3 +22,6 @@ class Sample(models.Model):
         name="file",
         validators=[FileTypeValidator(allowed_types=["audio/*"])],
     )
+
+    def __str__(self):
+        return f"{self.name}"
