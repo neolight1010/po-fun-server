@@ -1,5 +1,21 @@
 {% extends "app/base.html" %}
 
+{% load static %}
+
 {% block title %}Hello world{% endblock %}
 
-{% block content %}content haha{% endblock %}
+{% block extra-head %}
+    <link rel="stylesheet" href="{% static "sample/samples.css" %}" />
+{% endblock extra-head %}
+
+{% block content %}
+
+    <div id="sample-grid" class="pure-g">
+        <div class="pure-u-1-2">
+            <div class="sample-card">
+                {{"Sample name"}}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

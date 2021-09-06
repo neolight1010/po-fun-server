@@ -1,0 +1,9 @@
+.sample-card {
+  padding: 16px;
+  margin-right: 50px;
+
+  border: 2px solid white;
+  border-radius: 14px;
+
+  height: 12em;
+}
