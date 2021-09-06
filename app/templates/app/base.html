@@ -5,8 +5,7 @@
     <head>
         <title>{% block title %}{% endblock %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css" integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5" crossorigin="anonymous">
-
+        <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/grids-responsive-min.css" />
         <link rel="stylesheet" href="{% static "app/base.css" %}" />
 
         {% block extra-head %}{% endblock extra-head %}
@@ -19,6 +18,7 @@
                 <a href=#drums>drums</a>
                 <a href=#melodic>melodic</a>
                 <a href=#packs>packs</a>
+                <a href=#login>login</a>
             </div>
         </div>
         <div id="content">{%block content %}{% endblock %}</div>
