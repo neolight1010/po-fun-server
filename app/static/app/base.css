@@ -6,6 +6,61 @@
   --secondary-text-color: black;
 }
 
+@font-face {
+  font-family: "Office Code Pro";
+  font-style: normal;
+  font-weight: normal;
+  src: url("./fonts/OfficeCodePro/OfficeCodePro-Regular.otf");
+}
+
+@font-face {
+  font-family: "Office Code Pro";
+  font-style: normal;
+  font-weight: bold;
+  src: url("./fonts/OfficeCodePro/OfficeCodePro-Bold.otf");
+}
+
+@font-face {
+  font-family: "Office Code Pro";
+  font-style: normal;
+  font-weight: lighter;
+  src: url("./fonts/OfficeCodePro/OfficeCodePro-Light.otf");
+}
+
+@font-face {
+  font-family: "Office Code Pro";
+  font-style: normal;
+  font-size: medium;
+  src: url("./fonts/OfficeCodePro/OfficeCodePro-Medium.otf");
+}
+
+@font-face {
+  font-family: "Office Code Pro";
+  font-style: italic;
+  src: url("./fonts/OfficeCodePro/OfficeCodePro-RegularItalic.otf");
+}
+
+@font-face {
+  font-family: "Office Code Pro";
+  font-style: italic;
+  font-weight: bold;
+  src: url("./fonts/OfficeCodePro/OfficeCodePro-BoldItalic.otf");
+}
+
+@font-face {
+  font-family: "Office Code Pro";
+  font-style: italic;
+  font-weight: lighter;
+  src: url("./fonts/OfficeCodePro/OfficeCodePro-LightItalic.otf");
+}
+
+@font-face {
+  font-family: "Office Code Pro";
+  font-style: italic;
+  font-size: medium;
+  src: url("./fonts/OfficeCodePro/OfficeCodePro-MediumItalic.otf");
+}
+
 .navbar {
   background-color: var(--secondary-bg-color);
   overflow: hidden;
@@ -36,4 +91,6 @@
 body {
   background-color: var(--main-bg-color);
   color: var(--main-text-color);
+
+  font-family: "Office Code Pro";
 }
