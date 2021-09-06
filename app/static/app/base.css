@@ -76,7 +76,11 @@
   font-size: 17px;
 }
 
-.navbar-links {
+.navbar-links-start {
+  float: left;
+}
+
+.navbar-links-end {
   float: right;
 }
 
