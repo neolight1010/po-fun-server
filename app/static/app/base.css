@@ -1,3 +1,39 @@
+:root {
+  --main-bg-color: #141927;
+  --secondary-bg-color: #dfdfdf;
+
+  --main-text-color: white;
+  --secondary-text-color: black;
+}
+
 .navbar {
-  background-color: red;
+  background-color: var(--secondary-bg-color);
+  overflow: hidden;
+}
+
+.navbar a {
+  float: left;
+  display: block;
+  color: var(--secondary-text-color);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.navbar-links {
+  float: right;
+}
+
+.navbar a:hover {
+  text-decoration: underline;
+}
+
+#content {
+  padding: 30px;
+}
+
+body {
+  background-color: var(--main-bg-color);
+  color: var(--main-text-color);
 }
