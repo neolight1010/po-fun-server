@@ -11,11 +11,6 @@
 {% endblock extra-head %}
 
 {% block content %}
-
-    {% if form.errors %}
-        <p>Invalid username or password.</p>
-    {% endif %}
-
     <h1>login</h1>
 
     <form method="post" action="{% url "app:login" %}" class="pure-form pure-form-stacked">
@@ -31,6 +26,12 @@
         <a id="forgot-password" href="#forgot-password">forgot your password?</a>
 
         <br />
+
+        {% if form.errors %}
+            <br />
+            <p>Invalid username or password.</p>
+        {% endif %}
+
         <br />
 
         <div id="button-wrapper">

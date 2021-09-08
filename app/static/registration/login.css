@@ -6,7 +6,14 @@
   justify-content: center;
 }
 
+form {
+  display: flex;
+  flex-direction: column;
+}
+
 #forgot-password {
+  font-size: smaller;
+
   color: inherit;
   text-decoration: none;
   float: right;
