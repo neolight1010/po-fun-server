@@ -23,7 +23,13 @@ form {
   text-decoration: underline;
 }
 
+#invalid-password {
+  margin-bottom: 0;
+}
+
 #button-wrapper {
+  padding-top: 15px;
+
   display: flex;
   justify-content: center;
 }
