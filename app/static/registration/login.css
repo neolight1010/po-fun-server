@@ -1,0 +1,22 @@
+#content {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+}
+
+#forgot-password {
+  color: inherit;
+  text-decoration: none;
+  float: right;
+}
+
+#forgot-password:hover {
+  text-decoration: underline;
+}
+
+#button-wrapper {
+  display: flex;
+  justify-content: center;
+}

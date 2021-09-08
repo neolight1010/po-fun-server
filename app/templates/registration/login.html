@@ -1,0 +1,41 @@
+{% extends "app/base.html" %}
+
+{% load static %}
+
+{% block title %}Login - PO.fun{% endblock title %}
+
+{% block extra-head %}
+
+    <link rel="stylesheet" href="{% static 'registration/login.css' %}"TION' %}"
+
+{% endblock extra-head %}
+
+{% block content %}
+
+    {% if form.errors %}
+        <p>Invalid username or password.</p>
+    {% endif %}
+
+    <h1>login</h1>
+
+    <form method="post" action="{% url "app:login" %}" class="pure-form pure-form-stacked">
+        {% csrf_token %}
+
+        <label for="username">username</label>
+        {{ form.username }}
+
+        <br />
+
+        <label for="password">password</label>
+        {{ form.password }}
+        <a id="forgot-password" href="#forgot-password">forgot your password?</a>
+
+        <br />
+        <br />
+
+        <div id="button-wrapper">
+            <button type="submit" class="pure-button pure-button-primary">submit</button>
+        </div>
+    </form>
+
+{% endblock content %}
