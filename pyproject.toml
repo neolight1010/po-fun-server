@@ -8,6 +8,7 @@ authors = ["Anthony Suárez <neolight1010@gmail.com>"]
 python = "^3.9"
 Django = "^3.2.5"
 django-upload-validator = "^1.1.5"
+django-clear-cache = "^0.3"
 
 [tool.poetry.dev-dependencies]
 django-stubs = "^1.8.0"
