@@ -23,8 +23,8 @@ form {
   text-decoration: underline;
 }
 
-#invalid-password {
-  margin-bottom: 0;
+.error {
+  color: red;
 }
 
 #button-wrapper {

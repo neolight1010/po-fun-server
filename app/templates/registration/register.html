@@ -1,0 +1,49 @@
+{% extends "app/base.html" %}
+
+{% load static %}
+
+{% block title %}Register - PO.fun{% endblock title %}
+
+{% block extra-head %}
+    <link rel="stylesheet" href="{% static "registration/login_register.css" %}" />
+{% endblock extra-head %}
+
+{% block content %}
+    <h1>register</h1>
+
+    <form method="post" action="{% url "app:register" %}" class="pure-form pure-form-stacked">
+        {% csrf_token %}
+
+        <label for="username">username</label>
+        {{ form.username }}
+
+        {% for error in form.username.errors %}
+            <p class="error">{{ error }}</p>
+        {% endfor %}
+
+        <label for="email">email</label>
+        {{ form.email }}
+
+        {% for error in form.email.errors %}
+            <p class="error">{{ error }}</p>
+        {% endfor %}
+
+        <label for="password1">password</label>
+        {{ form.password1 }}
+
+        {% for error in form.password1.errors %}
+            <p class="error">{{ error }}</p>
+        {% endfor %}
+
+        <label for="password2">confirm password</label>
+        {{ form.password2}}
+
+        {% for error in form.password2.errors %}
+            <p class="error">{{ error }}</p>
+        {% endfor %}
+
+        <div id="button-wrapper">
+            <button type="submit" class="pure-button pure-button-primary">submit</button>
+        </div>
+    </form>
+{% endblock content %}

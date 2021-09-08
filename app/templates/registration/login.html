@@ -6,7 +6,7 @@
 
 {% block extra-head %}
 
-    <link rel="stylesheet" href="{% static 'registration/login.css' %}"TION' %}"
+    <link rel="stylesheet" href="{% static 'registration/login_register.css' %}" />
 
 {% endblock extra-head %}
 
@@ -19,16 +19,14 @@
         <label for="username">username</label>
         {{ form.username }}
 
-        <br />
 
         <label for="password">password</label>
         {{ form.password }}
         <a id="forgot-password" href="#forgot-password">forgot your password?</a>
 
-        <br />
 
         {% if form.errors %}
-            <p id="invalid-password">Invalid username or password.</p>
+            <p class="error">Invalid username or password.</p>
         {% endif %}
 
         <div id="button-wrapper">
