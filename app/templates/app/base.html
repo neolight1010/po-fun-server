@@ -23,8 +23,13 @@
                 <a href=#packs>packs</a>
             </div>
             <div class="navbar-links-end">
-                <a href="{% url 'app:register' %}">register</a>
-                <a href="{% url "app:login" %}">login</a>
+                {% if not user.is_authenticated %}
+                    <a href="{% url 'app:register' %}">register</a>
+                    <a href="{% url "app:login" %}">login</a>
+                {% else %}
+                    <a href="#upload">upload</a>
+                    <a href="#profile">{{ user.username }}</a>
+                {% endif %}
             </div>
         </div>
         <div id="content">{% block content %}{% endblock %}</div>

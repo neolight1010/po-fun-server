@@ -25,6 +25,9 @@
         <a id="forgot-password" href="#forgot-password">forgot your password?</a>
 
 
+        <input type="hidden" name="next" value="{% url 'app:index' %}" />
+
+
         {% if form.errors %}
             <p class="error">Invalid username or password.</p>
         {% endif %}
