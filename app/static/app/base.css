@@ -95,6 +95,8 @@
 body {
   background-color: var(--main-bg-color);
   color: var(--main-text-color);
+}
 
+body * {
   font-family: "Office Code Pro";
 }
