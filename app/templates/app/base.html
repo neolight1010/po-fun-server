@@ -28,7 +28,7 @@
                     <a href="{% url "app:login" %}">login</a>
                 {% else %}
                     <a href="#upload">upload</a>
-                    <a href="#logout">logout</a>
+                    <a href="{% url 'app:logout' %}">logout</a>
                     <a href="#profile">{{ user.username }}</a>
                 {% endif %}
             </div>
