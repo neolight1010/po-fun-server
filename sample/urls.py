@@ -1,4 +1,5 @@
 from django.urls import path
-from . import views
+from .views import DrumsView
 
-urlpatterns = [path("", views.index)]
+app_name = "sample"
+urlpatterns = [path("drums/", DrumsView.as_view(template_name="sample/drums.html"), name="drums")]

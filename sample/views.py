@@ -1,6 +1,8 @@
-from django.http import HttpRequest
-from django.shortcuts import render
+from django.views.generic.list import ListView
+from .models import Sample
 
 
-def index(request: HttpRequest):
-    return render(request, "sample/index.html")
+class DrumsView(ListView):
+    paginate_by = 6
+    queryset = Sample.objects.filter(type=Sample.SampleType.DRUM)
+    model = Sample
