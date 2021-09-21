@@ -1,0 +1,25 @@
+{% extends "app/base.html" %}
+
+{% load static %}
+
+{% block title %}Upload sample - PO.fun{% endblock title %}
+
+{% block extra-head %}
+    <link rel="stylesheet" href="{% static 'app/form_page.css' %}" />
+{% endblock extra-head %}
+
+{% block content %}
+
+    <h1>upload</h1>
+
+    <form method="post" enctype="multipart/form-data" action="{% url "sample:upload" %}" class="pure-form pure-form-stacked">
+        {% csrf_token %}
+
+        {{ form }}
+
+        <div id="button-wrapper">
+            <button type="submit" class="pure-button pure-button-primary">submit</button>
+        </div>
+    </form>
+
+{% endblock content %}
