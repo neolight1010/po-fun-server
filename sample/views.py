@@ -8,10 +8,19 @@ from django.urls import reverse
 from .models import Sample
 from .forms.SampleForm import SampleForm
 
-class DrumsView(ListView):
-    paginate_by = 6
-    queryset = Sample.objects.filter(type=Sample.SampleType.DRUM)
-    model = Sample
+
+def get_samples_view(sample_type: Sample.SampleType):
+    class View(ListView):
+        paginate_by = 6
+        queryset = Sample.objects.filter(type=sample_type)
+        model = Sample
+
+    return View
+
+
+DrumsView = get_samples_view(Sample.SampleType.DRUM)
+MelodicView = get_samples_view(Sample.SampleType.MELODIC)
+PacksView = get_samples_view(Sample.SampleType.PACK)
 
 
 @login_required

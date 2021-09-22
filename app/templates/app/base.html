@@ -19,8 +19,8 @@
             <div class="navbar-links-start">
                 <a href={% url "app:index" %}>po.fun</a>
                 <a href="{% url 'sample:drums' %}">drums</a>
-                <a href=#melodic>melodic</a>
-                <a href=#packs>packs</a>
+                <a href="{% url 'sample:melodic' %}">melodic</a>
+                <a href="{% url 'sample:packs' %}">packs</a>
             </div>
             <div class="navbar-links-end">
                 {% if not user.is_authenticated %}
