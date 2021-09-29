@@ -15,6 +15,10 @@
                 <div class="sample-card">
                     <p class="sample-name"> {{ sample.name }}</p>
                     <p class="sample-author"> {{ sample.author }}</p>
+
+                    <audio controls>
+                        <source src="{{ sample.file.url }}" type="audio/wav" />
+                    </audio>
                 </div>
             </div>
         {% endfor %}
