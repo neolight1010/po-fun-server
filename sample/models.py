@@ -20,7 +20,7 @@ class Sample(models.Model):
     sample_file = models.FileField(
         upload_to="uploads/",
         name="file",
-        validators=[FileTypeValidator(allowed_types=["audio/*"])],
+        validators=[FileTypeValidator(allowed_types=["audio/wav", "audio/ogg", "audio/mpeg"])],
     )
 
     def __str__(self):
