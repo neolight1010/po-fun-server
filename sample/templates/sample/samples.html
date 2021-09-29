@@ -9,37 +9,41 @@
 {% endblock extra-head %}
 
 {% block content %}
-    <div id="sample-grid" class="pure-g">
-        {% for sample in page_obj %}
-            <div class="pure-u-1-1 pure-u-md-1-2">
-                <div class="sample-card">
-                    <p class="sample-name"> {{ sample.name }}</p>
-                    <p class="sample-author"> {{ sample.author }}</p>
-                    <p class="sample-description"> {{ sample.description }} </p>
+    {% if page_obj|length_is:"0" %}
+        <p>No samples found. Perhaps you should upload some? c:</p>
+    {% else %}
+        <div id="sample-grid" class="pure-g">
+            {% for sample in page_obj %}
+                <div class="pure-u-1-1 pure-u-md-1-2">
+                    <div class="sample-card">
+                        <p class="sample-name"> {{ sample.name }}</p>
+                        <p class="sample-author"> {{ sample.author }}</p>
+                        <p class="sample-description"> {{ sample.description }} </p>
 
-                    <audio controls>
-                        <source src="{{ sample.file.url }}" type="audio/wav" />
-                    </audio>
+                        <audio controls>
+                            <source src="{{ sample.file.url }}" type="audio/wav" />
+                        </audio>
+                    </div>
                 </div>
-            </div>
-        {% endfor %}
-    </div>
+            {% endfor %}
+        </div>
 
-    <div class="pagination">
-        <span class="step-links">
-            <span class="current">
-                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        <div class="pagination">
+            <span class="step-links">
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_previous %}
+                    <a href="?page=1" class="page-link">&laquo; first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}" class="page-link">previous</a>
+                {% endif %}
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}" class="page-link">next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}" class="page-link">last &raquo;</a>
+                {% endif %}
             </span>
-
-            {% if page_obj.has_previous %}
-                <a href="?page=1" class="page-link">&laquo; first</a>
-                <a href="?page={{ page_obj.previous_page_number }}" class="page-link">previous</a>
-            {% endif %}
-
-            {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}" class="page-link">next</a>
-                <a href="?page={{ page_obj.paginator.num_pages }}" class="page-link">last &raquo;</a>
-            {% endif %}
-        </span>
-    </div>
+        </div>
+    {% endif %}
 {% endblock %}
