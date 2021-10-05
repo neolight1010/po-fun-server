@@ -6,6 +6,10 @@
   --secondary-text-color: black;
 }
 
+h1 {
+  margin: 0;
+}
+
 @font-face {
   font-family: "Office Code Pro";
   font-style: normal;
