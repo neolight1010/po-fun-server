@@ -20,6 +20,14 @@
                         <p class="sample-author"> {{ sample.author }}</p>
                         <p class="sample-description"> {{ sample.description }} </p>
 
+                        {% if sample.demo %}
+                            <audio controls>
+                                <source src="{{ sample.demo.url }}" />
+                            </audio>
+                        {% else %}
+                            <p>&gt There's no demo for this sample.</p>
+                        {% endif %}
+
                         <audio controls>
                             <source src="{{ sample.file.url }}" />
                         </audio>

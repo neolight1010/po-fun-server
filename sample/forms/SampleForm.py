@@ -5,4 +5,4 @@ from sample.models import Sample
 class SampleForm(ModelForm):
     class Meta:
         model = Sample
-        fields = ["name", "description", "type", "file"]
+        fields = ["name", "description", "type", "demo", "file"]

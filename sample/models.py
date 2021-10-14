@@ -5,6 +5,8 @@ from upload_validator import FileTypeValidator
 
 
 class Sample(models.Model):
+    allowed_file_types = ["audio/wav", "audio/ogg", "audio/mpeg"]
+
     class SampleType(models.TextChoices):
         MELODIC = _("MELODIC")
         DRUM = _("DRUM")
@@ -17,10 +19,17 @@ class Sample(models.Model):
     sample_type = models.CharField(
         max_length=10, choices=SampleType.choices, name="type"
     )
+
+    demo = models.FileField(
+        upload_to="uploads/",
+        validators=[FileTypeValidator(allowed_types=allowed_file_types)],
+        blank=True
+    )
+
     sample_file = models.FileField(
         upload_to="uploads/",
         name="file",
-        validators=[FileTypeValidator(allowed_types=["audio/wav", "audio/ogg", "audio/mpeg"])],
+        validators=[FileTypeValidator(allowed_types=allowed_file_types)],
     )
 
     def __str__(self):
