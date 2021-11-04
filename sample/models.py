@@ -3,6 +3,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import get_user_model
 from upload_validator import FileTypeValidator
 
+from .validators import validate_pack_sample_length
+
 
 class Sample(models.Model):
     allowed_file_types = ["audio/wav", "audio/ogg", "audio/mpeg"]
@@ -22,14 +24,17 @@ class Sample(models.Model):
 
     demo = models.FileField(
         upload_to="uploads/",
-        validators=[FileTypeValidator(allowed_types=allowed_file_types)],
+        validators=[FileTypeValidator(
+            allowed_types=allowed_file_types)],
         blank=True
     )
 
+    # TODO: validate length only for pack samples.
     sample_file = models.FileField(
         upload_to="uploads/",
         name="file",
-        validators=[FileTypeValidator(allowed_types=allowed_file_types)],
+        validators=[FileTypeValidator(
+            allowed_types=allowed_file_types), validate_pack_sample_length],
     )
 
     def __str__(self):
