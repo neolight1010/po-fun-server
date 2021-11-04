@@ -15,7 +15,29 @@
     <form method="post" enctype="multipart/form-data" action="{% url "sample:upload" %}" class="pure-form pure-form-stacked">
         {% csrf_token %}
 
-        {{ form }}
+        <!--{{ form }}-->
+
+        <!-- Form rendering -->
+        {% for hidden_field in form.hidden_fields %}
+            {{ hidden_field }}
+        {% endfor %}
+
+        {% if form.non_field_errors %}
+            {% for error in form.non_field_errors %}
+                {{ error }}
+            {% endfor %}
+        {% endif %}
+
+        {% for field in form.visible_fields %}
+            {{ field.label_tag }}
+            {{ field }}
+
+            {% if field.errors %}
+                {% for error in field.errors %}
+                    <p>&gt; {{ error }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
 
         <div id="button-wrapper">
             <button type="submit" class="pure-button pure-button-primary">submit</button>
