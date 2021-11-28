@@ -1,106 +1,109 @@
 :root {
-  --main-bg-color: #141927;
-  --secondary-bg-color: #dfdfdf;
+    --main-bg-color: #141927;
+    --secondary-bg-color: #dfdfdf;
 
-  --main-text-color: white;
-  --secondary-text-color: black;
+    --main-text-color: white;
+    --secondary-text-color: black;
+
+    --danger-text-color: #ffaf9c;
+    --success-text-color: #9ecf5f;
 }
 
 h1 {
-  margin: 0;
+    margin: 0;
 }
 
 @font-face {
-  font-family: "Office Code Pro";
-  font-style: normal;
-  font-weight: normal;
-  src: url("./fonts/OfficeCodePro/OfficeCodePro-Regular.otf");
+    font-family: "Office Code Pro";
+    font-style: normal;
+    font-weight: normal;
+    src: url("./fonts/OfficeCodePro/OfficeCodePro-Regular.otf");
 }
 
 @font-face {
-  font-family: "Office Code Pro";
-  font-style: normal;
-  font-weight: bold;
-  src: url("./fonts/OfficeCodePro/OfficeCodePro-Bold.otf");
+    font-family: "Office Code Pro";
+    font-style: normal;
+    font-weight: bold;
+    src: url("./fonts/OfficeCodePro/OfficeCodePro-Bold.otf");
 }
 
 @font-face {
-  font-family: "Office Code Pro";
-  font-style: normal;
-  font-weight: lighter;
-  src: url("./fonts/OfficeCodePro/OfficeCodePro-Light.otf");
+    font-family: "Office Code Pro";
+    font-style: normal;
+    font-weight: lighter;
+    src: url("./fonts/OfficeCodePro/OfficeCodePro-Light.otf");
 }
 
 @font-face {
-  font-family: "Office Code Pro";
-  font-style: normal;
-  font-size: medium;
-  src: url("./fonts/OfficeCodePro/OfficeCodePro-Medium.otf");
+    font-family: "Office Code Pro";
+    font-style: normal;
+    font-size: medium;
+    src: url("./fonts/OfficeCodePro/OfficeCodePro-Medium.otf");
 }
 
 @font-face {
-  font-family: "Office Code Pro";
-  font-style: italic;
-  src: url("./fonts/OfficeCodePro/OfficeCodePro-RegularItalic.otf");
+    font-family: "Office Code Pro";
+    font-style: italic;
+    src: url("./fonts/OfficeCodePro/OfficeCodePro-RegularItalic.otf");
 }
 
 @font-face {
-  font-family: "Office Code Pro";
-  font-style: italic;
-  font-weight: bold;
-  src: url("./fonts/OfficeCodePro/OfficeCodePro-BoldItalic.otf");
+    font-family: "Office Code Pro";
+    font-style: italic;
+    font-weight: bold;
+    src: url("./fonts/OfficeCodePro/OfficeCodePro-BoldItalic.otf");
 }
 
 @font-face {
-  font-family: "Office Code Pro";
-  font-style: italic;
-  font-weight: lighter;
-  src: url("./fonts/OfficeCodePro/OfficeCodePro-LightItalic.otf");
+    font-family: "Office Code Pro";
+    font-style: italic;
+    font-weight: lighter;
+    src: url("./fonts/OfficeCodePro/OfficeCodePro-LightItalic.otf");
 }
 
 @font-face {
-  font-family: "Office Code Pro";
-  font-style: italic;
-  font-size: medium;
-  src: url("./fonts/OfficeCodePro/OfficeCodePro-MediumItalic.otf");
+    font-family: "Office Code Pro";
+    font-style: italic;
+    font-size: medium;
+    src: url("./fonts/OfficeCodePro/OfficeCodePro-MediumItalic.otf");
 }
 
 .navbar {
-  background-color: var(--secondary-bg-color);
-  overflow: hidden;
+    background-color: var(--secondary-bg-color);
+    overflow: hidden;
 }
 
 .navbar a {
-  float: left;
-  display: block;
-  color: var(--secondary-text-color);
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
+    float: left;
+    display: block;
+    color: var(--secondary-text-color);
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
 }
 
 .navbar-links-start {
-  float: left;
+    float: left;
 }
 
 .navbar-links-end {
-  float: right;
+    float: right;
 }
 
 .navbar a:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
 #content {
-  padding: 30px;
+    padding: 30px;
 }
 
 body {
-  background-color: var(--main-bg-color);
-  color: var(--main-text-color);
+    background-color: var(--main-bg-color);
+    color: var(--main-text-color);
 }
 
 body * {
-  font-family: "Office Code Pro";
+    font-family: "Office Code Pro";
 }

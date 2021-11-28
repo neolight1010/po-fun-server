@@ -21,15 +21,15 @@
                         <p class="sample-description"> {{ sample.description }} </p>
 
                         {% if sample.demo %}
-                            <p>demo:</p>
+                            <p style="color: var(--success-text-color);">demo:</p>
                             <audio controls>
                                 <source src="{{ sample.demo.url }}" />
                             </audio>
                         {% else %}
-                            <p>&gt there's no demo for this sample.</p>
+                        <p style="color: var(--danger-text-color);">&gt there's no demo for this sample.</p>
                         {% endif %}
 
-                        <p>sample/data transfer:</p>
+                        <p style="color: var(--success-text-color);">sample/data transfer:</p>
                         <audio controls>
                             <source src="{{ sample.file.url }}" />
                         </audio>
