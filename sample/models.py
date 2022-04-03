@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import get_user_model
 from upload_validator import FileTypeValidator
 
@@ -10,9 +9,9 @@ class Sample(models.Model):
     allowed_file_types = ["audio/wav", "audio/ogg", "audio/mpeg"]
 
     class SampleType(models.TextChoices):
-        MELODIC = _("MELODIC")
-        DRUM = _("DRUM")
-        PACK = _("PACK")
+        MELODIC = "MELODIC"
+        DRUM = "DRUM"
+        PACK = "PACK"
 
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=500, blank=True)

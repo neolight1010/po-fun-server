@@ -6,7 +6,7 @@ authors = ["Anthony Suárez <neolight1010@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-Django = "^3.2.5"
+Django = "^4.0.3"
 django-upload-validator = "^1.1.5"
 django-clear-cache = "^0.3"
 mutagen = "^1.45.1"
