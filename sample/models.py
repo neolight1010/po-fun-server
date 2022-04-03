@@ -36,5 +36,5 @@ class Sample(models.Model):
             allowed_types=allowed_file_types), validate_pack_sample_length],
     )
 
-    def __str__(self):
-        return f"{self.name}"
+    def __str__(self) -> str:
+        return self.name
