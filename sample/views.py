@@ -12,7 +12,7 @@ from .forms.SampleForm import SampleForm
 def get_samples_view(sample_type: Sample.SampleType):
     class View(ListView):
         paginate_by = 6
-        queryset = Sample.objects.filter(type=sample_type)
+        queryset = Sample.objects.filter(sample_type=sample_type)
         model = Sample
 
     return View
