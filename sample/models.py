@@ -1,6 +1,7 @@
 from django.db import models
-from django.contrib.auth import get_user_model
 from upload_validator import FileTypeValidator
+
+from user.models import User
 
 from .validators import validate_pack_sample_length
 
@@ -15,7 +16,7 @@ class Sample(models.Model):
 
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=500, blank=True)
-    author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
 
     sample_type = models.CharField(
         max_length=10, choices=SampleType.choices
