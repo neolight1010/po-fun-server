@@ -88,7 +88,6 @@ class SampleValidatorsTestCase(TestCase):
             non_audio_sample.full_clean()
         except ValidationError as e:
             errors = e.message_dict["sample_file"]
-            print(errors)
 
             self.assertTrue(
                 any(
