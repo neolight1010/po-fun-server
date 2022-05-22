@@ -37,7 +37,7 @@ def upload(request: HttpRequest):
 
             return HttpResponseRedirect(reverse("app:index"))
     else:
-        form = SampleForm(label_suffix="")
+        form = SampleForm(label_suffix=":")
 
     for field in form.fields.values():
         field.label = (field.label or "").lower()
