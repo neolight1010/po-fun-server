@@ -10,11 +10,14 @@ Django = "^4.0.3"
 django-upload-validator = "^1.1.5"
 django-clear-cache = "^0.3"
 mutagen = "^1.45.1"
+django-stubs-ext = "^0.5.0"
 
 [tool.poetry.dev-dependencies]
 autopep8 = "^1.5.7"
 django-types = "^0.15.0"
 coverage = "^6.3.2"
+django-stubs = "1.12.0"
+mypy = "^0.971"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
