@@ -1,13 +1,10 @@
 from unittest.mock import MagicMock, patch
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
-from django.core.files.base import File
-from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 from sample.models import Sample
 from django.contrib.staticfiles import finders
 from mutagen import MutagenError
-from mutagen import File as MutagenFile
 
 from sample.validators import FILE_LOAD_ERROR_MSG
 
