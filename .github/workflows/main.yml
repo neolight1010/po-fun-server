@@ -21,7 +21,8 @@ jobs:
         with:
           python-version: "3.9"
           
-      - name: Mypy Check
-        run: |
-          mypy .
+      - name: Install dependencies
+        run: poetry install
 
+      - name: Mypy check
+        run: mypy .
