@@ -40,9 +40,7 @@ class SampleValidatorsTestCase(TestCase):
                 return
 
             self.assertFalse(
-                any(
-                    [_UNALLOWED_TYPE_FRAGMENT in error for error in errors]
-                )
+                any([_UNALLOWED_TYPE_FRAGMENT in error for error in errors])
             )
 
     def test_non_audio_file(self):
@@ -62,9 +60,7 @@ class SampleValidatorsTestCase(TestCase):
             errors = e.message_dict["sample_file"] if e.message_dict else []
 
             self.assertTrue(
-                any(
-                    [_UNALLOWED_TYPE_FRAGMENT in error for error in errors]
-                )
+                any([_UNALLOWED_TYPE_FRAGMENT in error for error in errors])
             )
 
     @patch("sample.validators.MutagenFile", autospec=True)
@@ -86,8 +82,4 @@ class SampleValidatorsTestCase(TestCase):
         except ValidationError as e:
             errors = e.message_dict["sample_file"] if e.message_dict else []
 
-            self.assertTrue(
-                any(
-                    [FILE_LOAD_ERROR_MSG in error for error in errors]
-                )
-            )
+            self.assertTrue(any([FILE_LOAD_ERROR_MSG in error for error in errors]))
