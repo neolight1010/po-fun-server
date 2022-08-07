@@ -34,9 +34,9 @@ class SampleValidatorsTestCase(TestCase):
         try:
             mp3_sample.full_clean()
         except ValidationError as e:
-            errors = e.message_dict.get("sample_file")
+            errors = e.message_dict.get("sample_file") if e.message_dict else []
 
-            if not errors:
+            if errors is None:
                 return
 
             self.assertFalse(
@@ -59,7 +59,7 @@ class SampleValidatorsTestCase(TestCase):
         try:
             non_audio_sample.full_clean()
         except ValidationError as e:
-            errors = e.message_dict["sample_file"]
+            errors = e.message_dict["sample_file"] if e.message_dict else []
 
             self.assertTrue(
                 any(
@@ -84,7 +84,7 @@ class SampleValidatorsTestCase(TestCase):
         try:
             non_audio_sample.full_clean()
         except ValidationError as e:
-            errors = e.message_dict["sample_file"]
+            errors = e.message_dict["sample_file"] if e.message_dict else []
 
             self.assertTrue(
                 any(
