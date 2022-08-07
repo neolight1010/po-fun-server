@@ -9,10 +9,6 @@ def index(request: HttpRequest):
     return render(request, "app/index.html")
 
 
-def login(request: HttpRequest):
-    return render(request, "app/login.html")
-
-
 def register(request: HttpRequest):
     if request.method == "POST":
         form = RegisterForm(request.POST)
