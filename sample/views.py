@@ -39,7 +39,7 @@ def upload(request: HttpRequest):
     else:
         form = SampleForm(label_suffix="")
 
-    for field in form.fields:
-        form.fields[field].label = form.fields[field].label.lower()
+    for field in form.fields.values():
+        field.label = (field.label or "").lower()
 
     return render(request, "sample/upload.html", {"form": form})
