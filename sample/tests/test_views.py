@@ -25,10 +25,7 @@ class UploadViewsTestCase(TestCase):
         client = Client()
         response = client.get(UPLOAD_URL, follow=True)
 
-        redirected_url, redirected_status = response.redirect_chain[-1]
-
-        self.assertEquals(redirected_status, 302)
-        self.assertTrue(redirected_url.startswith(reverse("app:login")))
+        self.assertRedirects(response, reverse("app:login") + f"?next={UPLOAD_URL}")
 
     def test_should_return_200_when_authenticated(self):
         client = Client()
@@ -43,7 +40,7 @@ class UploadViewsTestCase(TestCase):
 
         response = client.get(UPLOAD_URL)
 
-        form = response.context.get("form")
+        form = response.context[0].get("form")
         self.assertIsInstance(form, SampleForm)
 
         form = cast(SampleForm, form)
@@ -83,7 +80,7 @@ class UploadViewsTestCase(TestCase):
 
         response = client.post(UPLOAD_URL, follow=True)
 
-        self.assertEquals(response.redirect_chain[-1][0], reverse("app:index"))
+        self.assertRedirects(response, reverse("app:index"))
 
         self.assertEquals(mock_sample_form.save.call_count, 1)
         self.assertEquals(mock_sample.author, self.user)
