@@ -9,6 +9,9 @@ PERFECT_PACK_LENGTH_SECONDS = 4 * 60
 ALLOWED_ERROR_SECONDS = 10
 """ 10 seconds of error are allowed for upload."""
 
+MIN_ALLOWED_PACK_LENGTH = PERFECT_PACK_LENGTH_SECONDS - ALLOWED_ERROR_SECONDS
+MAX_ALLOWED_PACK_LENGTH = PERFECT_PACK_LENGTH_SECONDS + ALLOWED_ERROR_SECONDS
+
 
 FILE_LOAD_ERROR_MSG = "Error loading audio file."
 FILE_NOT_AUDIO_ERROR_MSG = "File not detected as audio."
@@ -28,8 +31,5 @@ def validate_pack_sample_length(sample: FieldFile):
 
 
 def _validate_audio_length(length: float) -> None:
-    min_allowed = PERFECT_PACK_LENGTH_SECONDS - ALLOWED_ERROR_SECONDS
-    max_allowed = PERFECT_PACK_LENGTH_SECONDS + ALLOWED_ERROR_SECONDS
-
-    if length < min_allowed or length > max_allowed:
+    if length < MIN_ALLOWED_PACK_LENGTH or length > MAX_ALLOWED_PACK_LENGTH:
         raise ValidationError(INVALID_LENGTH_ERROR_MSG)
