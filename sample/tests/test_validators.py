@@ -2,6 +2,7 @@ from unittest.mock import MagicMock, patch
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.test import TestCase
+from sample.analyzer import FileLoadError
 from sample.models import Sample
 from django.contrib.staticfiles import finders
 from mutagen import MutagenError
@@ -63,9 +64,9 @@ class SampleValidatorsTestCase(TestCase):
                 any([_UNALLOWED_TYPE_FRAGMENT in error for error in errors])
             )
 
-    @patch("sample.validators.MutagenFile", autospec=True)
-    def test_load_error(self, mock_MutagenFile: MagicMock):
-        mock_MutagenFile.side_effect = MutagenError()
+    @patch("sample.validators.SampleAnalyzer", autospec=True)
+    def test_load_error(self, mock_SampleAnalizer: MagicMock):
+        mock_SampleAnalizer.side_effect = FileLoadError()
 
         found_file = finders.find("sample/test_files/image.png")
 
