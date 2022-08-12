@@ -5,7 +5,7 @@ from user.models import User
 
 from .validators import validate_pack_sample_length
 
-ALLOWED_FILE_TYPES = ["audio/wav", "audio/ogg", "audio/mpeg"]
+ALLOWED_FILE_TYPES = ["audio/wav", "audio/ogg", "audio/mpeg", "audio/x-wav"]
 
 
 class Sample(models.Model):
