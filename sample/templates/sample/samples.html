@@ -16,7 +16,7 @@
             {% for sample in page_obj %}
                 <div class="pure-u-1-1 pure-u-md-1-2">
                     <div class="sample-card">
-                        <p class="sample-name"> {{ sample.name }}</p>
+                        <a class="sample-name" href={% url 'sample:detail' sample.id %}> {{ sample.name }}</a>
                         <p class="sample-author"> {{ sample.author }}</p>
                         <p class="sample-description"> {{ sample.description }} </p>
 

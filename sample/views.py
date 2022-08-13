@@ -43,3 +43,6 @@ def upload(request: HttpRequest):
         field.label = (field.label or "").lower()
 
     return render(request, "sample/upload.html", {"form": form})
+
+def detail(request: HttpRequest, sample_id: int):
+    return render(request, "sample/detail.html")
