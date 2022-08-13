@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from upload_validator import FileTypeValidator
 
@@ -29,12 +30,18 @@ class Sample(models.Model):
         blank=True
     )
 
-    # TODO: validate length only for pack samples.
     sample_file = models.FileField(
         upload_to="uploads/",
         validators=[FileTypeValidator(
-            allowed_types=ALLOWED_FILE_TYPES), validate_pack_sample_length],
+            allowed_types=ALLOWED_FILE_TYPES)],
     )
+
+    def clean(self) -> None:
+        if self.sample_type == self.SampleType.PACK:
+            try:
+                validate_pack_sample_length(self.sample_file)
+            except ValidationError as e:
+                raise ValidationError({"sample_file": e.message})
 
     def __str__(self) -> str:
         return self.name

@@ -64,7 +64,7 @@ class SampleValidatorsTestCase(TestCase):
             )
 
     @patch("sample.validators.SampleAnalyzer", autospec=True)
-    def test_load_error(self, mock_SampleAnalizer: MagicMock):
+    def test_pack_load_error(self, mock_SampleAnalizer: MagicMock):
         mock_SampleAnalizer.side_effect = FileLoadError()
 
         found_file = finders.find("sample/test_files/image.png")
@@ -72,7 +72,7 @@ class SampleValidatorsTestCase(TestCase):
         non_audio_sample = Sample(
             name="test file",
             author=self.author,
-            sample_type=Sample.SampleType.MELODIC,
+            sample_type=Sample.SampleType.PACK,
             sample_file=found_file,
         )
         non_audio_sample.save()
@@ -85,7 +85,7 @@ class SampleValidatorsTestCase(TestCase):
             self.assertTrue(any([FILE_LOAD_ERROR_MSG in error for error in errors]))
 
     @patch("sample.validators.SampleAnalyzer", autospec=True)
-    def test_invalid_length(self, mock_SampleAnalizer: MagicMock):
+    def test_pack_invalid_length(self, mock_SampleAnalizer: MagicMock):
         mock_SampleAnalizer.return_value = MockSampleAnalyzer()
         mock_SampleAnalizer.return_value.length = MIN_ALLOWED_PACK_LENGTH - 1
 
@@ -94,7 +94,7 @@ class SampleValidatorsTestCase(TestCase):
         non_audio_sample = Sample(
             name="test file",
             author=self.author,
-            sample_type=Sample.SampleType.MELODIC,
+            sample_type=Sample.SampleType.PACK,
             sample_file=found_file,
         )
         non_audio_sample.save()
