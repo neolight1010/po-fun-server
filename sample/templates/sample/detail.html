@@ -1,7 +1,23 @@
 {% extends "app/base.html" %}
 
-{% block title %}Sample detail{% endblock title %}
+{% block title %}{{ sample.name }} - PO.fun{% endblock title %}
 
 {% block content %}
-    <h1>Sample</h1>
+    <h1>{{ sample.name }}</h1>
+
+    <p>{{ sample.description }}</p>
+
+    {% if sample.demo %}
+        <p class="success">demo:</p>
+        <audio controls>
+            <source src="{{ sample.demo.url }}" />
+        </audio>
+    {% else %}
+    <p class="error">&gt there's no demo for this sample.</p>
+    {% endif %}
+
+    <p class="success">sample/data transfer:</p>
+    <audio controls>
+        <source src="{{ sample.sample_file.url }}" />
+    </audio>
 {% endblock content %}

@@ -2,6 +2,7 @@ from django.http.request import HttpRequest
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 
@@ -44,5 +45,8 @@ def upload(request: HttpRequest):
 
     return render(request, "sample/upload.html", {"form": form})
 
-def detail(request: HttpRequest, sample_id: int):
-    return render(request, "sample/detail.html")
+
+class SampleDetailView(DetailView):
+    model = Sample
+
+    template_name: str = "sample/detail.html"
