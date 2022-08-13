@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block title %}Drums - PO.fun{% endblock %}
+{% block title %}Drums - PO.fun{% endblock title %}
 
 {% block extra-head %}
     <link rel="stylesheet" href="{% static "sample/samples.css" %}" />
@@ -45,15 +45,15 @@
                 </span>
 
                 {% if page_obj.has_previous %}
-                    <a href="?page=1" class="page-link">&laquo; first</a>
+                    <a href="?page=1" class="page-link">« first</a>
                     <a href="?page={{ page_obj.previous_page_number }}" class="page-link">previous</a>
                 {% endif %}
 
                 {% if page_obj.has_next %}
                     <a href="?page={{ page_obj.next_page_number }}" class="page-link">next</a>
-                    <a href="?page={{ page_obj.paginator.num_pages }}" class="page-link">last &raquo;</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}" class="page-link">last »</a>
                 {% endif %}
             </span>
         </div>
     {% endif %}
-{% endblock %}
+{% endblock content %}
