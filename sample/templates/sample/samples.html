@@ -30,9 +30,8 @@
                         {% endif %}
 
                         <p class="success">sample/data transfer:</p>
-                        <audio controls>
-                            <source src="{{ sample.sample_file.url }}" />
-                        </audio>
+
+                        {% include "sample/components/sample-player.html" with sample=sample %}
                     </div>
                 </div>
             {% endfor %}
