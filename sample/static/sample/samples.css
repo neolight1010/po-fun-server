@@ -23,3 +23,11 @@
     color: white;
     text-decoration: underline;
 }
+
+.success {
+    color: var(--success-text-color);
+}
+
+.error {
+    color: var(--danger-text-color);
+}
