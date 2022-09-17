@@ -71,6 +71,8 @@ h1 {
 .navbar {
     background-color: var(--secondary-bg-color);
     overflow: hidden;
+
+    width: 100%;
 }
 
 .navbar a {
@@ -100,6 +102,12 @@ h1 {
 }
 
 body {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
     background-color: var(--main-bg-color);
     color: var(--main-text-color);
 }
