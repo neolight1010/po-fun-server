@@ -1,6 +1,12 @@
 {% extends "app/base.html" %}
 
+{% load static %}
+
 {% block title %}{{ sample.name }} - PO.fun{% endblock title %}
+
+{% block extra-head %}
+    <link rel="stylesheet" href="{% static "sample/detail.css" %}" />
+{% endblock extra-head %}
 
 {% block content %}
     <h1>{{ sample.name }}</h1>
@@ -13,7 +19,7 @@
             <source src="{{ sample.demo.url }}" />
         </audio>
     {% else %}
-    <p class="error">&gt there's no demo for this sample.</p>
+    <p class="danger">&gt there's no demo for this sample.</p>
     {% endif %}
 
     <p class="success">sample/data transfer:</p>
