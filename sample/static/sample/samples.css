@@ -5,8 +5,14 @@
 
     border: 2px solid white;
     border-radius: 14px;
+}
 
-    /*height: 12em;*/
+.sample-card a:link {
+    color: white;
+}
+
+.sample-card a:visited {
+    color: white;
 }
 
 .sample-name {
