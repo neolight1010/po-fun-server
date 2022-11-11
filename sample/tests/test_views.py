@@ -65,8 +65,7 @@ class UploadViewsTestCase(TestCase):
 
         post_request_samples_quantity = len(Sample.objects.all())
 
-        self.assertEquals(pre_request_samples_quantity,
-                          post_request_samples_quantity)
+        self.assertEquals(pre_request_samples_quantity, post_request_samples_quantity)
 
     @patch("sample.views.SampleForm")
     def test_post_request_valid_data(self, mock_SampleForm: MagicMock):
@@ -86,7 +85,7 @@ class UploadViewsTestCase(TestCase):
         self.assertEquals(mock_sample.author, self.user)
 
 
-class MockSampleForm():
+class MockSampleForm:
     def __init__(self, mock_sample: Mock):
         self.save = Mock(return_value=mock_sample)
         self.save_m2m = Mock()

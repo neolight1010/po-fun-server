@@ -7,18 +7,43 @@ import upload_validator
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('sample', '0005_rename_file_sample_sample_file_and_more'),
+        ("sample", "0005_rename_file_sample_sample_file_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='sample',
-            name='demo',
-            field=models.FileField(blank=True, upload_to='uploads/', validators=[upload_validator.FileTypeValidator(allowed_types=['audio/wav', 'audio/ogg', 'audio/mpeg', 'audio/x-wav'])]),
+            model_name="sample",
+            name="demo",
+            field=models.FileField(
+                blank=True,
+                upload_to="uploads/",
+                validators=[
+                    upload_validator.FileTypeValidator(
+                        allowed_types=[
+                            "audio/wav",
+                            "audio/ogg",
+                            "audio/mpeg",
+                            "audio/x-wav",
+                        ]
+                    )
+                ],
+            ),
         ),
         migrations.AlterField(
-            model_name='sample',
-            name='sample_file',
-            field=models.FileField(upload_to='uploads/', validators=[upload_validator.FileTypeValidator(allowed_types=['audio/wav', 'audio/ogg', 'audio/mpeg', 'audio/x-wav'])]),
+            model_name="sample",
+            name="sample_file",
+            field=models.FileField(
+                upload_to="uploads/",
+                validators=[
+                    upload_validator.FileTypeValidator(
+                        allowed_types=[
+                            "audio/wav",
+                            "audio/ogg",
+                            "audio/mpeg",
+                            "audio/x-wav",
+                        ]
+                    )
+                ],
+            ),
         ),
     ]

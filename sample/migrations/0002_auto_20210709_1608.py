@@ -7,18 +7,26 @@ import upload_validator
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('sample', '0001_initial'),
+        ("sample", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='sample',
-            name='file',
-            field=models.FileField(upload_to='uploads/', validators=[upload_validator.FileTypeValidator(allowed_types=['audio/*'])]),
+            model_name="sample",
+            name="file",
+            field=models.FileField(
+                upload_to="uploads/",
+                validators=[
+                    upload_validator.FileTypeValidator(allowed_types=["audio/*"])
+                ],
+            ),
         ),
         migrations.AlterField(
-            model_name='sample',
-            name='type',
-            field=models.CharField(choices=[('MELODIC', 'Melodic'), ('DRUM', 'Drum'), ('PACK', 'Pack')], max_length=10),
+            model_name="sample",
+            name="type",
+            field=models.CharField(
+                choices=[("MELODIC", "Melodic"), ("DRUM", "Drum"), ("PACK", "Pack")],
+                max_length=10,
+            ),
         ),
     ]

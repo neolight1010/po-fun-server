@@ -8,13 +8,21 @@ import upload_validator
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('sample', '0003_auto_20211014_1823'),
+        ("sample", "0003_auto_20211014_1823"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='sample',
-            name='file',
-            field=models.FileField(upload_to='uploads/', validators=[upload_validator.FileTypeValidator(allowed_types=['audio/wav', 'audio/ogg', 'audio/mpeg']), sample.validators.validate_pack_sample_length]),
+            model_name="sample",
+            name="file",
+            field=models.FileField(
+                upload_to="uploads/",
+                validators=[
+                    upload_validator.FileTypeValidator(
+                        allowed_types=["audio/wav", "audio/ogg", "audio/mpeg"]
+                    ),
+                    sample.validators.validate_pack_sample_length,
+                ],
+            ),
         ),
     ]

@@ -6,7 +6,11 @@ from sample.analyzer import FileLoadError
 from sample.models import Sample
 from django.contrib.staticfiles import finders
 
-from sample.validators import FILE_LOAD_ERROR_MSG, INVALID_LENGTH_ERROR_MSG, MIN_ALLOWED_PACK_LENGTH
+from sample.validators import (
+    FILE_LOAD_ERROR_MSG,
+    INVALID_LENGTH_ERROR_MSG,
+    MIN_ALLOWED_PACK_LENGTH,
+)
 
 
 _UNALLOWED_TYPE_FRAGMENT = "Allowed types are"
@@ -104,7 +108,9 @@ class SampleValidatorsTestCase(TestCase):
         except ValidationError as e:
             errors = e.message_dict["sample_file"] if e.message_dict else []
 
-            self.assertTrue(any([INVALID_LENGTH_ERROR_MSG in error for error in errors]))
+            self.assertTrue(
+                any([INVALID_LENGTH_ERROR_MSG in error for error in errors])
+            )
 
 
 class MockSampleAnalyzer:

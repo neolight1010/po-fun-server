@@ -6,18 +6,18 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('sample', '0004_alter_sample_file'),
+        ("sample", "0004_alter_sample_file"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='sample',
-            old_name='file',
-            new_name='sample_file',
+            model_name="sample",
+            old_name="file",
+            new_name="sample_file",
         ),
         migrations.RenameField(
-            model_name='sample',
-            old_name='type',
-            new_name='sample_type',
+            model_name="sample",
+            old_name="type",
+            new_name="sample_type",
         ),
     ]

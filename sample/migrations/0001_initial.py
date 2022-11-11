@@ -15,14 +15,34 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Sample',
+            name="Sample",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100)),
-                ('description', models.CharField(blank=True, max_length=500)),
-                ('type', models.CharField(choices=[('MELODIC', 'Melodic'), ('DRUM', 'Drum')], max_length=10)),
-                ('file', models.FileField(upload_to='uploads/')),
-                ('author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=100)),
+                ("description", models.CharField(blank=True, max_length=500)),
+                (
+                    "type",
+                    models.CharField(
+                        choices=[("MELODIC", "Melodic"), ("DRUM", "Drum")],
+                        max_length=10,
+                    ),
+                ),
+                ("file", models.FileField(upload_to="uploads/")),
+                (
+                    "author",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
     ]

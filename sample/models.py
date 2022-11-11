@@ -19,21 +19,17 @@ class Sample(models.Model):
     description = models.CharField(max_length=500, blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    sample_type = models.CharField(
-        max_length=10, choices=SampleType.choices
-    )
+    sample_type = models.CharField(max_length=10, choices=SampleType.choices)
 
     demo = models.FileField(
         upload_to="uploads/",
-        validators=[FileTypeValidator(
-            allowed_types=ALLOWED_FILE_TYPES)],
-        blank=True
+        validators=[FileTypeValidator(allowed_types=ALLOWED_FILE_TYPES)],
+        blank=True,
     )
 
     sample_file = models.FileField(
         upload_to="uploads/",
-        validators=[FileTypeValidator(
-            allowed_types=ALLOWED_FILE_TYPES)],
+        validators=[FileTypeValidator(allowed_types=ALLOWED_FILE_TYPES)],
     )
 
     def clean(self) -> None:
