@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "app",
     "user",
     "sample",
+    "vote",
 ]
 
 MIDDLEWARE = [
