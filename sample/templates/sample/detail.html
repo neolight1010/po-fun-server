@@ -19,10 +19,35 @@
             <source src="{{ sample.demo.url }}" />
         </audio>
     {% else %}
-    <p class="danger">&gt there's no demo for this sample.</p>
+        <p class="danger">&gt there's no demo for this sample.</p>
     {% endif %}
 
     <p class="success">sample/data transfer:</p>
 
     {% include "sample/components/sample-player.html" with sample=sample %}
+
+    <div id="votes-container"><a href="#" class="vote-btn" id="upvote">Upvote</a> <a id="downvote" class="vote-btn" href="#">Downvote</a></div>
+
+    <script type="text/javascript">
+        const VOTE_UP = 0;
+        const VOTE_DOWN = 1;
+
+        const vote = (direction) => {
+            fetch("/vote/{{sample.id}}", {
+                method: "POST",
+                body: new URLSearchParams({ direction, csrfmiddlewaretoken: "{{ csrf_token }}" }),
+            });
+
+            document.querySelector("#votes-container").innerHTML = direction === VOTE_UP ? "👍" : "👎";
+        }
+
+        document.querySelector("#upvote").addEventListener("click", () => {
+            vote(VOTE_UP);
+        });
+
+        document.querySelector("#downvote").addEventListener("click", () => {
+            vote(VOTE_DOWN);
+        });
+    </script>
 {% endblock content %}
+
