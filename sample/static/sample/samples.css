@@ -29,6 +29,10 @@
     margin-top: 4px;
 }
 
+.sample-points {
+    font-style: italic;
+}
+
 .page-link {
     color: white;
     text-decoration: underline;

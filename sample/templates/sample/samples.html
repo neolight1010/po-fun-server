@@ -20,6 +20,7 @@
                         <a class="sample-name" href={% url "sample:detail" sample.id %}> {{ sample.name }}</a>
                         <p class="sample-author"> {{ sample.author }}</p>
                         <p class="sample-description"> {{ sample.description }} </p>
+                        <p class="sample-points">{{sample.points}} points</p>
 
                         {% if sample.demo %}
                             <p class="success">demo:</p>

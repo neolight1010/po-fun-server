@@ -2,13 +2,10 @@ from django.db import models
 from sample.models import Sample
 
 from user.models import User
+from vote.direction import Direction
 
 
 class Vote(models.Model):
-    class Direction(models.IntegerChoices):
-        UP = 0
-        DOWN = 1
-
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     sample = models.ForeignKey(Sample, on_delete=models.CASCADE)
 

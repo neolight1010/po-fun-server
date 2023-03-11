@@ -6,12 +6,13 @@ from django.http import HttpRequest, HttpResponseBadRequest
 from django.shortcuts import HttpResponse
 from sample.models import Sample
 from user.models import User
+from vote.direction import Direction
 
 from vote.models import Vote
 
 
 class _VoteViewForm(forms.Form):
-    direction = forms.ChoiceField(choices=Vote.Direction.choices)
+    direction = forms.ChoiceField(choices=Direction.choices)
 
 
 @login_required
@@ -26,7 +27,10 @@ def vote_view(request: HttpRequest, sample_id: int) -> HttpResponse:
     if sample is None:
         return HttpResponseBadRequest()
 
-    Vote.objects.create(sample_id=sample_id,
-                        direction=request_data.cleaned_data['direction'], user=cast(User, request.user))
+    Vote.objects.create(
+        sample_id=sample_id,
+        direction=request_data.cleaned_data["direction"],
+        user=cast(User, request.user),
+    )
 
     return HttpResponse()
