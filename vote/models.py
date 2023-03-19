@@ -10,3 +10,6 @@ class Vote(models.Model):
     sample = models.ForeignKey(Sample, on_delete=models.CASCADE)
 
     direction = models.IntegerField(choices=Direction.choices)
+
+    class Meta:
+        unique_together = [["user", "sample"]]

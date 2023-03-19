@@ -1,5 +1,6 @@
 from typing import cast
 from django.contrib.auth.decorators import login_required
+from django.db import IntegrityError
 import django.forms as forms
 
 from django.http import HttpRequest, HttpResponseBadRequest
@@ -27,10 +28,16 @@ def vote_view(request: HttpRequest, sample_id: int) -> HttpResponse:
     if sample is None:
         return HttpResponseBadRequest()
 
+    voter = cast(User, request.user)
+
+    has_already_voted = Vote.objects.filter(sample_id=sample_id, user=voter).exists()
+    if has_already_voted:
+        return HttpResponseBadRequest()
+
     Vote.objects.create(
         sample_id=sample_id,
         direction=request_data.cleaned_data["direction"],
-        user=cast(User, request.user),
+        user=voter,
     )
 
     return HttpResponse()
