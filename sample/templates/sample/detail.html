@@ -32,21 +32,25 @@
         const VOTE_UP = 0;
         const VOTE_DOWN = 1;
 
-        const vote = (direction) => {
-            fetch("/vote/{{sample.id}}", {
+        const vote = async (direction) => {
+            const vote_result = await fetch("/vote/{{sample.id}}", {
                 method: "POST",
                 body: new URLSearchParams({ direction, csrfmiddlewaretoken: "{{ csrf_token }}" }),
             });
 
-            document.querySelector("#votes-container").innerHTML = direction === VOTE_UP ? "👍" : "👎";
+            if (vote_result.ok) {
+                document.querySelector("#votes-container").innerHTML = direction === VOTE_UP ? "👍" : "👎";
+            } else {
+                document.querySelector("#votes-container").innerHTML = await vote_result.text();
+            }
         }
 
-        document.querySelector("#upvote").addEventListener("click", () => {
-            vote(VOTE_UP);
+        document.querySelector("#upvote").addEventListener("click", async () => {
+            await vote(VOTE_UP);
         });
 
-        document.querySelector("#downvote").addEventListener("click", () => {
-            vote(VOTE_DOWN);
+        document.querySelector("#downvote").addEventListener("click", async () => {
+            await vote(VOTE_DOWN);
         });
     </script>
 {% endblock content %}

@@ -32,7 +32,7 @@ def vote_view(request: HttpRequest, sample_id: int) -> HttpResponse:
 
     has_already_voted = Vote.objects.filter(sample_id=sample_id, user=voter).exists()
     if has_already_voted:
-        return HttpResponseBadRequest()
+        return HttpResponseBadRequest("User already voted on this sample.")
 
     Vote.objects.create(
         sample_id=sample_id,
