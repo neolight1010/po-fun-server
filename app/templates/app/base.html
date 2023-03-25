@@ -29,7 +29,7 @@
                 {% else %}
                     <a href="{% url 'sample:upload' %}">upload</a>
                     <a href="{% url 'app:logout' %}">logout</a>
-                    <a href="#profile">{{ user.username }}</a>
+                    <a href="{% url 'user:detail' user.id %}">{{ user.username }}</a>
                 {% endif %}
             </div>
         </div>
