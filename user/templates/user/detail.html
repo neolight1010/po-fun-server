@@ -1,1 +1,16 @@
 {% extends "app/base.html" %}
+
+{% block title %}
+    {{ user.username }} - PO.fun
+{% endblock title %}
+
+{% block content %}
+    <h1>{{ user.username }}</h1>
+    <div id="sample-list">
+        <h2>Samples</h2>
+
+        {% for sample in user.sample_set.all %}
+            - <a href="{% url 'sample:detail' sample.pk %}">{{ sample }}</a>
+        {% endfor %}
+    </div>
+{% endblock content %}
