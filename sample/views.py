@@ -1,3 +1,4 @@
+from typing import Any
 from django.http.request import HttpRequest
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
@@ -15,6 +16,12 @@ def _get_samples_view(sample_type: Sample.SampleType):
         paginate_by = 6
         queryset = Sample.objects.filter(sample_type=sample_type)
         model = Sample
+
+        def get_context_data(self, **kwargs) -> dict[str, Any]:
+            context = super().get_context_data(**kwargs)
+            context["sample_type"] = sample_type.value.title()
+
+            return context
 
     return View
 
