@@ -3,6 +3,9 @@
 }
 
 .sample-card {
+    display: flex;
+    flex-direction: column;
+
     padding: 16px;
     margin-right: 50px;
     margin-bottom: 35px;
@@ -21,7 +24,7 @@
 
 .sample-name {
     font-size: xx-large;
-    margin: 0;
+    margin-bottom: 3px;
 }
 
 .sample-author {

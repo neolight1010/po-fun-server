@@ -19,7 +19,7 @@
                 <div class="pure-u-1-1 pure-u-md-1-2 pure-u-lg-1-3">
                     <div class="sample-card">
                         <a class="sample-name" href={% url "sample:detail" sample.id %}>{{ sample.name }}</a>
-                        <p class="sample-author">{{ sample.author }}</p>
+                        <a class="sample-author" href={% url "user:detail" user.pk %}>{{ sample.author }}</a>
                         <p class="sample-description">{{ sample.description }}</p>
                         <p class="sample-points">{{ sample.points }} points</p>
                         {% if sample.demo %}
