@@ -1,4 +1,5 @@
 from typing import TYPE_CHECKING
+
 from django.core.exceptions import ValidationError
 from django.db import models
 from upload_validator import FileTypeValidator
@@ -61,3 +62,10 @@ class Sample(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+
+class Tag(models.Model):
+    name = models.CharField(max_length=16)
+    samples: models.ManyToManyField[Sample, Sample] = models.ManyToManyField(
+        Sample, related_name="tags"
+    )
