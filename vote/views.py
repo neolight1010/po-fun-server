@@ -1,10 +1,8 @@
 from typing import cast
 from django.contrib.auth.decorators import login_required
-from django.db import IntegrityError
 import django.forms as forms
 
-from django.http import HttpRequest, HttpResponseBadRequest
-from django.shortcuts import HttpResponse
+from django.http import HttpRequest, HttpResponse, HttpResponseBadRequest
 from sample.models import Sample
 from user.models import User
 from vote.direction import Direction
