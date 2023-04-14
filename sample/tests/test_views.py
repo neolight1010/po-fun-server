@@ -13,10 +13,9 @@ from sample.views import upload
 from user.models import User
 
 
-_UPLOAD_URL = reverse("sample:upload")
-
-
 class UploadViewsTestCase(TestCase):
+    _UPLOAD_URL = reverse("sample:upload")
+
     def setUp(self) -> None:
         self.user = User.objects.create(username="test")
         self.client.force_login(self.user)
@@ -24,16 +23,18 @@ class UploadViewsTestCase(TestCase):
     def test_should_redirect_to_login(self):
         self.client.logout()
 
-        response = self.client.get(_UPLOAD_URL, follow=True)
+        response = self.client.get(self._UPLOAD_URL, follow=True)
 
-        self.assertRedirects(response, reverse("app:login") + f"?next={_UPLOAD_URL}")
+        self.assertRedirects(
+            response, reverse("app:login") + f"?next={self._UPLOAD_URL}"
+        )
 
     def test_should_return_200_when_authenticated(self):
-        response = self.client.get(_UPLOAD_URL)
+        response = self.client.get(self._UPLOAD_URL)
         self.assertEquals(response.status_code, 200)
 
     def test_get_request(self):
-        response = self.client.get(_UPLOAD_URL)
+        response = self.client.get(self._UPLOAD_URL)
 
         form = response.context[0].get("form")
         self.assertIsInstance(form, SampleForm)
@@ -52,7 +53,7 @@ class UploadViewsTestCase(TestCase):
     def test_post_request_invalid_data(self):
         form = SampleForm(data={"invalid": "data"})
 
-        response = self.client.post(_UPLOAD_URL, data=form.data)
+        response = self.client.post(self._UPLOAD_URL, data=form.data)
 
         self.assertEquals(response.status_code, 400)
         self.assertEquals(Sample.objects.count(), 0)
@@ -68,7 +69,7 @@ class UploadViewsTestCase(TestCase):
             }
         )
 
-        request = RequestFactory().post(_UPLOAD_URL, data=form.data)
+        request = RequestFactory().post(self._UPLOAD_URL, data=form.data)
         request.user = self.user
         request.FILES["sample_file"] = SimpleUploadedFile(
             name="test", content=MOCK_SAMPLE_FILE
@@ -97,7 +98,7 @@ class UploadViewsTestCase(TestCase):
             }
         )
 
-        request = RequestFactory().post(_UPLOAD_URL, data=form.data)
+        request = RequestFactory().post(self._UPLOAD_URL, data=form.data)
         request.user = self.user
         request.FILES["sample_file"] = SimpleUploadedFile(
             name="test", content=MOCK_SAMPLE_FILE
