@@ -114,3 +114,24 @@ class UploadViewsTestCase(TestCase):
         self.assertTrue(sample.tags.filter(name="tag1").exists())
         self.assertTrue(sample.tags.filter(name="tag2").exists())
         self.assertTrue(sample.tags.filter(name="tag3").exists())
+
+
+class SamplesViewTests(TestCase):
+    _DRUMS_URL = reverse("sample:drums")
+
+    def test_unfiltered_samples(self) -> None:
+        sample = Sample.objects.create(
+            name="sample name",
+            author=User.objects.create(username="username"),
+            sample_type=Sample.SampleType.DRUM,
+            sample_file=SimpleUploadedFile(
+                name="sample name", content=MOCK_SAMPLE_FILE
+            ),
+        )
+
+        response = self.client.get(self._DRUMS_URL)
+
+        samples = response.context.get("sample_list") or []
+
+        self.assertEqual(len(samples), 1)
+        self.assertEqual(samples[0], sample)
