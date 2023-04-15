@@ -119,10 +119,13 @@ class UploadViewsTestCase(TestCase):
 class SamplesViewTests(TestCase):
     _DRUMS_URL = reverse("sample:drums")
 
+    def setUp(self) -> None:
+        self.author = User.objects.create(username="author")
+
     def test_unfiltered_samples(self) -> None:
         sample = Sample.objects.create(
             name="sample name",
-            author=User.objects.create(username="username"),
+            author=self.author,
             sample_type=Sample.SampleType.DRUM,
             sample_file=SimpleUploadedFile(
                 name="sample name", content=MOCK_SAMPLE_FILE
@@ -135,3 +138,29 @@ class SamplesViewTests(TestCase):
 
         self.assertEqual(len(samples), 1)
         self.assertEqual(samples[0], sample)
+
+    def test_filtered_samples_by_name(self) -> None:
+        searchable_sample = Sample.objects.create(
+            name="Searchable Sample",
+            author=self.author,
+            sample_type=Sample.SampleType.DRUM,
+            sample_file=SimpleUploadedFile(
+                name="sample name", content=MOCK_SAMPLE_FILE
+            ),
+        )
+
+        Sample.objects.create(
+            name="Some Other Sample",
+            author=self.author,
+            sample_type=Sample.SampleType.DRUM,
+            sample_file=SimpleUploadedFile(
+                name="sample name", content=MOCK_SAMPLE_FILE
+            ),
+        )
+
+        response = self.client.get(self._DRUMS_URL, data={"search": "searchable"})
+
+        samples = response.context.get("sample_list") or []
+
+        self.assertEqual(len(samples), 1)
+        self.assertEqual(samples[0], searchable_sample)

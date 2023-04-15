@@ -1,4 +1,5 @@
 from typing import Any, cast
+from django.db.models import QuerySet
 from django.http.request import HttpRequest
 from django.http.response import HttpResponseBadRequest, HttpResponseRedirect
 from django.shortcuts import render
@@ -18,6 +19,21 @@ def _get_samples_view(sample_type: Sample.SampleType):
         paginate_by = 6
         queryset = Sample.objects.filter(sample_type=sample_type)
         model = Sample
+
+        _search_keyword: str = ""
+
+        def setup(self, request: HttpRequest, *args: Any, **kwargs: Any) -> None:
+            self._search_keyword = request.GET.get("search", "")
+
+            super().setup(request, *args, **kwargs)
+
+        def get_queryset(self):
+            samples = cast(QuerySet[Sample], super().get_queryset())
+
+            if not self._search_keyword:
+                return samples
+
+            return samples.filter(name__contains=self._search_keyword)
 
         def get_context_data(self, **kwargs) -> dict[str, Any]:
             context = super().get_context_data(**kwargs)
@@ -50,7 +66,9 @@ def upload(request: HttpRequest):
 
             return HttpResponseRedirect(reverse("app:index"))
 
-        return HttpResponseBadRequest(form.errors.as_json(), content_type="application/json")
+        return HttpResponseBadRequest(
+            form.errors.as_json(), content_type="application/json"
+        )
     else:
         form = SampleForm(label_suffix=":")
 
