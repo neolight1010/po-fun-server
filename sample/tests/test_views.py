@@ -6,7 +6,7 @@ from django.test.client import RequestFactory
 from django.urls.base import reverse
 
 from sample.forms.SampleForm import SampleForm
-from sample.models import Sample
+from sample.models import Sample, Tag
 from sample.tests.mock_sample_file import MOCK_SAMPLE_FILE
 from sample.views import upload
 
@@ -123,8 +123,37 @@ class SamplesViewTests(TestCase):
         self.author = User.objects.create(username="author")
 
     def test_unfiltered_samples(self) -> None:
-        sample = Sample.objects.create(
-            name="sample name",
+        sample = self._create_simple_sample()
+
+        response = self.client.get(self._DRUMS_URL)
+
+        samples = response.context.get("sample_list") or []
+
+        self._assert_found_sample(samples, sample)
+
+    def test_filtered_samples_by_name(self) -> None:
+        searchable_sample = self._create_sample_searchable_by_name()
+        self._create_simple_sample()
+
+        response = self.client.get(self._DRUMS_URL, data={"search": "searchable"})
+
+        samples = response.context.get("sample_list") or []
+
+        self._assert_found_sample(samples, searchable_sample)
+
+    def test_filtered_samples_by_tag(self) -> None:
+        searchable_sample = self._create_sample_searchable_by_tag()
+        self._create_simple_sample()
+
+        response = self.client.get(self._DRUMS_URL, data={"search": "searchable"})
+
+        samples = response.context.get("sample_list") or []
+
+        self._assert_found_sample(samples, searchable_sample)
+
+    def _create_simple_sample(self):
+        return Sample.objects.create(
+            name="Some Sample",
             author=self.author,
             sample_type=Sample.SampleType.DRUM,
             sample_file=SimpleUploadedFile(
@@ -132,14 +161,7 @@ class SamplesViewTests(TestCase):
             ),
         )
 
-        response = self.client.get(self._DRUMS_URL)
-
-        samples = response.context.get("sample_list") or []
-
-        self.assertEqual(len(samples), 1)
-        self.assertEqual(samples[0], sample)
-
-    def test_filtered_samples_by_name(self) -> None:
+    def _create_sample_searchable_by_name(self):
         searchable_sample = Sample.objects.create(
             name="Searchable Sample",
             author=self.author,
@@ -148,9 +170,11 @@ class SamplesViewTests(TestCase):
                 name="sample name", content=MOCK_SAMPLE_FILE
             ),
         )
+        return searchable_sample
 
-        Sample.objects.create(
-            name="Some Other Sample",
+    def _create_sample_searchable_by_tag(self):
+        searchable_sample = Sample.objects.create(
+            name="Sample Name",
             author=self.author,
             sample_type=Sample.SampleType.DRUM,
             sample_file=SimpleUploadedFile(
@@ -158,9 +182,9 @@ class SamplesViewTests(TestCase):
             ),
         )
 
-        response = self.client.get(self._DRUMS_URL, data={"search": "searchable"})
+        searchable_sample.tags.add(Tag.objects.create(name="searchable"))
+        return searchable_sample
 
-        samples = response.context.get("sample_list") or []
-
+    def _assert_found_sample(self, samples: list[Sample], sample: Sample) -> None:
         self.assertEqual(len(samples), 1)
-        self.assertEqual(samples[0], searchable_sample)
+        self.assertEqual(samples[0], sample)

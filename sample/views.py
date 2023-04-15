@@ -1,5 +1,5 @@
 from typing import Any, cast
-from django.db.models import QuerySet
+from django.db.models import Q, QuerySet
 from django.http.request import HttpRequest
 from django.http.response import HttpResponseBadRequest, HttpResponseRedirect
 from django.shortcuts import render
@@ -33,7 +33,10 @@ def _get_samples_view(sample_type: Sample.SampleType):
             if not self._search_keyword:
                 return samples
 
-            return samples.filter(name__contains=self._search_keyword)
+            return samples.filter(
+                Q(name__icontains=self._search_keyword)
+                | Q(tags__name__icontains=self._search_keyword)
+            )
 
         def get_context_data(self, **kwargs) -> dict[str, Any]:
             context = super().get_context_data(**kwargs)
