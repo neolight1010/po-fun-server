@@ -34,6 +34,9 @@ class Sample(models.Model):
         validators=[FileTypeValidator(allowed_types=ALLOWED_FILE_TYPES)],
     )
 
+    class Meta:
+        ordering = ["id"]
+
     def clean(self) -> None:
         if self.sample_type == self.SampleType.PACK:
             try:
