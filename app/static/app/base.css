@@ -73,16 +73,21 @@ h1 {
     overflow: hidden;
 
     width: 100%;
+
+    padding-top: 16px;
+    padding-bottom: 16px;
 }
 
-.navbar a {
+.navbar * {
     float: left;
     display: block;
     color: var(--secondary-text-color);
     text-align: center;
-    padding: 14px 16px;
     text-decoration: none;
     font-size: 17px;
+
+    margin-right: 0.7em;
+    margin-left: 0.7em;
 }
 
 .navbar-links-start {

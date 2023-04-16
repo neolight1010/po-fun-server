@@ -8,6 +8,7 @@
 
         <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css" integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5" crossorigin="anonymous" />
         <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/grids-responsive-min.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css" integrity="sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=" crossorigin="anonymous">
 
         <link rel="stylesheet" href="{% static "app/base.css" %}" />
 
@@ -23,6 +24,8 @@
                 <a href="{% url 'sample:packs' %}">packs</a>
             </div>
             <div class="navbar-links-end">
+                {% block extra-navbar-end %}{% endblock extra-navbar-end %}
+
                 {% if not user.is_authenticated %}
                     <a href="{% url 'app:register' %}">register</a>
                     <a href="{% url "app:login" %}">login</a>

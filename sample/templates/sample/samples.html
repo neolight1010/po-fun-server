@@ -10,6 +10,15 @@
     <link rel="stylesheet" href="{% static "sample/samples.css" %}" />
 {% endblock extra-head %}
 
+{% block extra-navbar-end %}
+    <form id="search-form" method="get">
+        <input type="text" name="search" class="search-input" />
+        <button type="submit" class="search-submit">
+            <i class="fa fa-search" aria-hidden="true"></i>
+        </button>
+    </form>
+{% endblock extra-navbar-end %}
+
 {% block content %}
     {% if page_obj|length_is:"0" %}
         <p>No samples found. Perhaps you should upload some? c:</p>
