@@ -2,7 +2,9 @@
 
 {% load static %}
 
-{% block title %}{{ sample.name }} - PO.fun{% endblock title %}
+{% block title %}
+    {{ sample.name }} - PO.fun
+{% endblock title %}
 
 {% block extra-head %}
     <link rel="stylesheet" href="{% static "sample/detail.css" %}" />
@@ -12,6 +14,14 @@
     <h1>{{ sample.name }}</h1>
 
     <p>{{ sample.description }}</p>
+
+    <div class="tags-container pure-g">
+        {% for tag in sample.tags.all %}
+            <div class="tag-name pure-u-1 pure-u-sm-1-2 pure-u-md-1-3">
+                <p>{{ tag.name }}</p>
+            </div>
+        {% endfor %}
+    </div>
 
     {% if sample.demo %}
         <p class="success">demo:</p>
@@ -26,7 +36,9 @@
 
     {% include "sample/components/sample-player.html" with sample=sample %}
 
-    <div id="votes-container"><a href="#" class="vote-btn" id="upvote">Upvote</a> <a id="downvote" class="vote-btn" href="#">Downvote</a></div>
+    <div id="votes-container">
+        <a href="#" class="vote-btn" id="upvote">Upvote</a> <a id="downvote" class="vote-btn" href="#">Downvote</a>
+    </div>
 
     <script type="text/javascript">
         const VOTE_UP = 0;
@@ -54,4 +66,3 @@
         });
     </script>
 {% endblock content %}
-
