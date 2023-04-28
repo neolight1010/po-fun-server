@@ -1,4 +1,4 @@
-from typing import cast
+from typing import Final, cast
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.forms.fields import Field
 from django.test.testcases import TestCase
@@ -116,7 +116,7 @@ class UploadViewsTestCase(TestCase):
         self.assertTrue(sample.tags.filter(name="tag3").exists())
 
 
-class SamplesViewTests(TestCase):
+class SamplesViewSearchTests(TestCase):
     _DRUMS_URL = reverse("sample:drums")
 
     def setUp(self) -> None:
@@ -188,3 +188,42 @@ class SamplesViewTests(TestCase):
     def _assert_found_sample(self, samples: list[Sample], sample: Sample) -> None:
         self.assertEqual(len(samples), 1)
         self.assertEqual(samples[0], sample)
+
+
+class SamplesViewOrderTests(TestCase):
+    _DRUMS_URL: Final = reverse("sample:drums")
+
+    def setUp(self) -> None:
+        self.author = User.objects.create(username="author")
+
+        self.first_sample = self._create_simple_sample(name="First Sample")
+        self.second_sample = self._create_simple_sample(name="Second Sample")
+
+    def test_order_by_least_recent(self) -> None:
+        response = self.client.get(self._DRUMS_URL, data={"order": "least recent"})
+
+        self._assert_response_has_samples_in_order(response)
+
+    def test_order_by_least_recent_is_default(self) -> None:
+        response = self.client.get(self._DRUMS_URL)
+
+        self._assert_response_has_samples_in_order(response)
+
+    def _create_simple_sample(self, *, name: str = "Some Sample") -> Sample:
+        return Sample.objects.create(
+            name=name,
+            author=self.author,
+            sample_type=Sample.SampleType.DRUM,
+            sample_file=SimpleUploadedFile(
+                name="sample name", content=MOCK_SAMPLE_FILE
+            ),
+        )
+
+    def _assert_response_has_samples_in_order(self, response):
+        samples = list(response.context.get("sample_list") or [])
+
+        self.assertEqual(
+            samples,
+            [self.first_sample, self.second_sample],
+            "Samples are not the same or in the expected order.",
+        )
