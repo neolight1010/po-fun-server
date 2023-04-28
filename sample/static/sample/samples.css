@@ -36,6 +36,28 @@
     font-style: italic;
 }
 
+.search-toolbar {
+    width: 100%;
+
+    margin-bottom: 2em;
+
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+}
+
+.search-toolbar .search-input {
+    flex-grow: 7;
+}
+
+.search-toolbar .search-order {
+    flex-grow: 2;
+}
+
+.search-toolbar .search-submit {
+    flex-grow: 1;
+}
+
 .page-link {
     color: white;
     text-decoration: underline;

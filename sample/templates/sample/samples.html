@@ -10,20 +10,27 @@
     <link rel="stylesheet" href="{% static "sample/samples.css" %}" />
 {% endblock extra-head %}
 
-{% block extra-navbar-end %}
-    <form id="search-form" method="get">
+{% block content %}
+    <form class="search-toolbar">
         <input type="text" name="search" class="search-input" />
+
+        <select name="order" class="search-order">
+            <option value="most-recent">most recent</option>
+            <option value="least-recent">least recent</option>
+
+            <option value="most-points">most points</option>
+            <option value="least-points">least points</option>
+        </select>
+
         <button type="submit" class="search-submit">
             <i class="fa fa-search" aria-hidden="true"></i>
         </button>
     </form>
-{% endblock extra-navbar-end %}
 
-{% block content %}
     {% if page_obj|length_is:"0" %}
         <p>No samples found. Perhaps you should upload some? c:</p>
     {% else %}
-        <div class="sample-grid" class="pure-g">
+        <div class="sample-grid pure-g">
             {% for sample in page_obj %}
                 <div class="pure-u-1-1 pure-u-md-1-2 pure-u-lg-1-3">
                     <div class="sample-card">
