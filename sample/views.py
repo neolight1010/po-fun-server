@@ -1,4 +1,4 @@
-from typing import Any, cast
+from typing import Any, Type, cast
 from django.db.models import Q, QuerySet
 from django.http.request import HttpRequest
 from django.http.response import HttpResponseBadRequest, HttpResponseRedirect
@@ -14,7 +14,7 @@ from .models import Sample, Tag
 from .forms.SampleForm import SampleForm
 
 
-def _get_samples_view(sample_type: Sample.SampleType):
+def _get_samples_view(sample_type: Sample.SampleType) -> Type[ListView]:
     class View(ListView):
         paginate_by = 6
         queryset = Sample.objects.filter(sample_type=sample_type)
@@ -24,11 +24,15 @@ def _get_samples_view(sample_type: Sample.SampleType):
 
         def setup(self, request: HttpRequest, *args: Any, **kwargs: Any) -> None:
             self._search_keyword = request.GET.get("search", "")
+            self._search_order = request.GET.get("order", "")
 
             super().setup(request, *args, **kwargs)
 
         def get_queryset(self):
             samples = cast(QuerySet[Sample], super().get_queryset())
+
+            if self._search_order == "most-recent":
+                samples = samples.order_by("-created_at")
 
             if not self._search_keyword:
                 return samples

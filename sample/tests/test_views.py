@@ -1,4 +1,7 @@
-from typing import Final, cast
+from __future__ import annotations
+
+from typing import TYPE_CHECKING, Final, List, cast
+
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.forms.fields import Field
 from django.test.testcases import TestCase
@@ -11,6 +14,9 @@ from sample.tests.mock_sample_file import MOCK_SAMPLE_FILE
 from sample.views import upload
 
 from user.models import User
+
+if TYPE_CHECKING:
+    from django.test.client import _MonkeyPatchedWSGIResponse
 
 
 class UploadViewsTestCase(TestCase):
@@ -199,15 +205,26 @@ class SamplesViewOrderTests(TestCase):
         self.first_sample = self._create_simple_sample(name="First Sample")
         self.second_sample = self._create_simple_sample(name="Second Sample")
 
-    def test_order_by_least_recent(self) -> None:
-        response = self.client.get(self._DRUMS_URL, data={"order": "least recent"})
-
-        self._assert_response_has_samples_in_order(response)
-
     def test_order_by_least_recent_is_default(self) -> None:
         response = self.client.get(self._DRUMS_URL)
 
-        self._assert_response_has_samples_in_order(response)
+        self._assert_response_has_samples(
+            response, [self.first_sample, self.second_sample]
+        )
+
+    def test_order_by_least_recent(self) -> None:
+        response = self.client.get(self._DRUMS_URL, data={"order": "least-recent"})
+
+        self._assert_response_has_samples(
+            response, [self.first_sample, self.second_sample]
+        )
+
+    def test_order_by_most_recent(self) -> None:
+        response = self.client.get(self._DRUMS_URL, data={"order": "most-recent"})
+
+        self._assert_response_has_samples(
+            response, [self.second_sample, self.first_sample]
+        )
 
     def _create_simple_sample(self, *, name: str = "Some Sample") -> Sample:
         return Sample.objects.create(
@@ -219,11 +236,13 @@ class SamplesViewOrderTests(TestCase):
             ),
         )
 
-    def _assert_response_has_samples_in_order(self, response):
-        samples = list(response.context.get("sample_list") or [])
+    def _assert_response_has_samples(
+        self, response: _MonkeyPatchedWSGIResponse, samples: List[Sample]
+    ) -> None:
+        response_samples = list(response.context.get("sample_list") or [])
 
         self.assertEqual(
+            response_samples,
             samples,
-            [self.first_sample, self.second_sample],
             "Samples are not the same or in the expected order.",
         )
