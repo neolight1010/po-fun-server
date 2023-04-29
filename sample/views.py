@@ -31,21 +31,23 @@ def _get_samples_view(sample_type: Sample.SampleType) -> Type[ListView]:
         def get_queryset(self):
             samples = cast(QuerySet[Sample], super().get_queryset())
 
-            if self._search_order == "most-recent":
-                samples = samples.order_by("-created_at")
-            else:
-                samples = samples.order_by("created_at")
-
             if self._search_keyword:
                 samples = samples.filter(
                     Q(name__icontains=self._search_keyword)
                     | Q(tags__name__icontains=self._search_keyword)
                 )
 
-            if self._search_order == "least-points":
-                samples = sorted(list(samples), key=lambda sample: sample.points)
-            elif self._search_order == "most-points":
-                samples = sorted(list(samples), key=lambda sample: sample.points, reverse=True)
+            match self._search_order:
+                case "least-recent":
+                    samples = samples.order_by("created_at")
+                case "least-points":
+                    samples = sorted(list(samples), key=lambda sample: sample.points)
+                case "most-points":
+                    samples = sorted(
+                        list(samples), key=lambda sample: sample.points, reverse=True
+                    )
+                case _:
+                    samples = samples.order_by("-created_at")
 
             return samples
 

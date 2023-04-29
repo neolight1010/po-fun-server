@@ -210,8 +210,8 @@ class SamplesViewOrderTests(TestCase):
 
         self._order_samples_opposite_to_default_ordering()
 
-    def test_order_by_least_recent_is_default(self) -> None:
-        self._make_first_sample_the_oldest()
+    def test_order_by_most_recent_is_default(self) -> None:
+        self._make_first_sample_the_newest()
 
         response = self.client.get(self._DRUMS_URL)
 
@@ -273,7 +273,7 @@ class SamplesViewOrderTests(TestCase):
         self.first_sample.save()
 
     def _order_samples_opposite_to_default_ordering(self) -> None:
-        self._make_first_sample_the_newest()
+        self._make_first_sample_the_oldest()
 
     def _make_first_sample_the_least_voted(self) -> None:
         Vote.objects.create(
