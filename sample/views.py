@@ -33,14 +33,16 @@ def _get_samples_view(sample_type: Sample.SampleType) -> Type[ListView]:
 
             if self._search_order == "most-recent":
                 samples = samples.order_by("-created_at")
+            else:
+                samples = samples.order_by("created_at")
 
-            if not self._search_keyword:
-                return samples
+            if self._search_keyword:
+                samples = samples.filter(
+                    Q(name__icontains=self._search_keyword)
+                    | Q(tags__name__icontains=self._search_keyword)
+                )
 
-            return samples.filter(
-                Q(name__icontains=self._search_keyword)
-                | Q(tags__name__icontains=self._search_keyword)
-            )
+            return samples
 
         def get_context_data(self, **kwargs) -> dict[str, Any]:
             context = super().get_context_data(**kwargs)

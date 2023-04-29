@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import datetime as dt
 from typing import TYPE_CHECKING, Final, List, cast
 
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -12,6 +13,8 @@ from sample.forms.SampleForm import SampleForm
 from sample.models import Sample, Tag
 from sample.tests.mock_sample_file import MOCK_SAMPLE_FILE
 from sample.views import upload
+from vote.direction import Direction
+from vote.models import Vote
 
 from user.models import User
 
@@ -206,6 +209,8 @@ class SamplesViewOrderTests(TestCase):
         self.second_sample = self._create_simple_sample(name="Second Sample")
 
     def test_order_by_least_recent_is_default(self) -> None:
+        self._make_first_sample_the_oldest()
+
         response = self.client.get(self._DRUMS_URL)
 
         self._assert_response_has_samples(
@@ -213,6 +218,8 @@ class SamplesViewOrderTests(TestCase):
         )
 
     def test_order_by_least_recent(self) -> None:
+        self._make_first_sample_the_oldest()
+
         response = self.client.get(self._DRUMS_URL, data={"order": "least-recent"})
 
         self._assert_response_has_samples(
@@ -220,14 +227,16 @@ class SamplesViewOrderTests(TestCase):
         )
 
     def test_order_by_most_recent(self) -> None:
+        self._make_first_sample_the_newest()
+
         response = self.client.get(self._DRUMS_URL, data={"order": "most-recent"})
 
         self._assert_response_has_samples(
-            response, [self.second_sample, self.first_sample]
+            response, [self.first_sample, self.second_sample]
         )
 
     def _create_simple_sample(self, *, name: str = "Some Sample") -> Sample:
-        return Sample.objects.create(
+        sample = Sample.objects.create(
             name=name,
             author=self.author,
             sample_type=Sample.SampleType.DRUM,
@@ -235,6 +244,20 @@ class SamplesViewOrderTests(TestCase):
                 name="sample name", content=MOCK_SAMPLE_FILE
             ),
         )
+
+        sample.created_at = dt.datetime(2023, 1, 1, tzinfo=dt.timezone.utc)
+        sample.save()
+
+        return sample
+
+
+    def _make_first_sample_the_oldest(self):
+        self.first_sample.created_at -= dt.timedelta(days=1)
+        self.first_sample.save()
+
+    def _make_first_sample_the_newest(self):
+        self.first_sample.created_at += dt.timedelta(days=1)
+        self.first_sample.save()
 
     def _assert_response_has_samples(
         self, response: _MonkeyPatchedWSGIResponse, samples: List[Sample]
@@ -246,3 +269,4 @@ class SamplesViewOrderTests(TestCase):
             samples,
             "Samples are not the same or in the expected order.",
         )
+
