@@ -17,6 +17,8 @@ class Sample(models.Model):
         DRUM = "DRUM"
         PACK = "PACK"
 
+    created_at = models.DateTimeField(auto_now_add=True)
+
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=500, blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
