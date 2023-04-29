@@ -42,6 +42,11 @@ def _get_samples_view(sample_type: Sample.SampleType) -> Type[ListView]:
                     | Q(tags__name__icontains=self._search_keyword)
                 )
 
+            if self._search_order == "least-points":
+                samples = sorted(list(samples), key=lambda sample: sample.points)
+            elif self._search_order == "most-points":
+                samples = sorted(list(samples), key=lambda sample: sample.points, reverse=True)
+
             return samples
 
         def get_context_data(self, **kwargs) -> dict[str, Any]:

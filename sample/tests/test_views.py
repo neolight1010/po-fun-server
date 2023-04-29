@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import datetime as dt
-from typing import TYPE_CHECKING, Final, List, cast
+from typing import TYPE_CHECKING, Final, cast
 
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.forms.fields import Field
@@ -208,32 +208,42 @@ class SamplesViewOrderTests(TestCase):
         self.first_sample = self._create_simple_sample(name="First Sample")
         self.second_sample = self._create_simple_sample(name="Second Sample")
 
+        self._order_samples_opposite_to_default_ordering()
+
     def test_order_by_least_recent_is_default(self) -> None:
         self._make_first_sample_the_oldest()
 
         response = self.client.get(self._DRUMS_URL)
 
-        self._assert_response_has_samples(
-            response, [self.first_sample, self.second_sample]
-        )
+        self._assert_response_has_samples_in_correct_order(response)
 
     def test_order_by_least_recent(self) -> None:
         self._make_first_sample_the_oldest()
 
         response = self.client.get(self._DRUMS_URL, data={"order": "least-recent"})
 
-        self._assert_response_has_samples(
-            response, [self.first_sample, self.second_sample]
-        )
+        self._assert_response_has_samples_in_correct_order(response)
 
     def test_order_by_most_recent(self) -> None:
         self._make_first_sample_the_newest()
 
         response = self.client.get(self._DRUMS_URL, data={"order": "most-recent"})
 
-        self._assert_response_has_samples(
-            response, [self.first_sample, self.second_sample]
-        )
+        self._assert_response_has_samples_in_correct_order(response)
+
+    def test_order_by_least_points(self) -> None:
+        self._make_first_sample_the_least_voted()
+
+        response = self.client.get(self._DRUMS_URL, data={"order": "least-points"})
+
+        self._assert_response_has_samples_in_correct_order(response)
+
+    def test_order_by_most_points(self) -> None:
+        self._make_first_sample_the_most_voted()
+
+        response = self.client.get(self._DRUMS_URL, data={"order": "most-points"})
+
+        self._assert_response_has_samples_in_correct_order(response)
 
     def _create_simple_sample(self, *, name: str = "Some Sample") -> Sample:
         sample = Sample.objects.create(
@@ -250,23 +260,38 @@ class SamplesViewOrderTests(TestCase):
 
         return sample
 
-
-    def _make_first_sample_the_oldest(self):
-        self.first_sample.created_at -= dt.timedelta(days=1)
+    def _make_first_sample_the_oldest(self) -> None:
+        self.first_sample.created_at = self.second_sample.created_at - dt.timedelta(
+            days=1
+        )
         self.first_sample.save()
 
-    def _make_first_sample_the_newest(self):
-        self.first_sample.created_at += dt.timedelta(days=1)
+    def _make_first_sample_the_newest(self) -> None:
+        self.first_sample.created_at = self.second_sample.created_at + dt.timedelta(
+            days=1
+        )
         self.first_sample.save()
 
-    def _assert_response_has_samples(
-        self, response: _MonkeyPatchedWSGIResponse, samples: List[Sample]
+    def _order_samples_opposite_to_default_ordering(self) -> None:
+        self._make_first_sample_the_newest()
+
+    def _make_first_sample_the_least_voted(self) -> None:
+        Vote.objects.create(
+            sample=self.first_sample, user=self.author, direction=Direction.DOWN
+        )
+
+    def _make_first_sample_the_most_voted(self) -> None:
+        Vote.objects.create(
+            sample=self.first_sample, user=self.author, direction=Direction.UP
+        )
+
+    def _assert_response_has_samples_in_correct_order(
+        self, response: _MonkeyPatchedWSGIResponse
     ) -> None:
-        response_samples = list(response.context.get("sample_list") or [])
+        response_samples = list(response.context.get("object_list") or [])
 
         self.assertEqual(
             response_samples,
-            samples,
+            [self.first_sample, self.second_sample],
             "Samples are not the same or in the expected order.",
         )
-
