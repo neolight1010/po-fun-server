@@ -76,7 +76,7 @@ TEMPLATES = [
 WSGI_APPLICATION = "core.wsgi.application"
 
 DATABASES = {
-    "default": env.db("DATABASE_URL"),
+    "default": env.db("DATABASE_URL", "postgres://postgres:postgres@localhost:5432/po-fun"),
 }
 
 AUTH_PASSWORD_VALIDATORS = [
