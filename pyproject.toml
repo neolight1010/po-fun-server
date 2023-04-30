@@ -27,7 +27,7 @@ rope = "^1.7.0"
 plugins = ["mypy_django_plugin.main"]
 
 [[tool.mypy.overrides]]
-module = ["mutagen", "upload_validator"]
+module = ["environ", "mutagen", "upload_validator"]
 ignore_missing_imports = true
 
 [tool.django-stubs]
